@@ -8,25 +8,35 @@ async function buscarImagens (raca) {
     return imagens.message
 }
 
-
-
-function pesquisar (){
-    const search = document.getElementById('search')
-    const botao  = document.getElementById('botao')
-
-    botao.addEventListener('click', function(){
-        const valorSearch = search.value;
-        buscarImagens(valorSearch)
+function exibirImagens(imagens) {
+    const gallery = document.getElementById('gallery')
+    
+    imagens.forEach(url => {
+        const galleryItem = document.createElement('div')
+        galleryItem.className = 'gallery-item'
         
+        const img = document.createElement('img')
+        img.src = url;
+        img.alt = 'Imagem de cachorro'
+        
+        galleryItem.appendChild(img)
+        gallery.appendChild(galleryItem)
     })
-    //const imagem = document.getElementById('pesquisa')
-    //const novaImagem = document.createElement('img')
-    //novaImagem.src = 
-    //imagem.appendChild(novaImagem)
-    
-    
-    
 }
+
+function pesquisar() {
+    const search = document.getElementById('search')
+    const botao = document.getElementById('botao')
+
+    botao.addEventListener('click', async function() {
+        const valorSearch = search.value.trim().toLowerCase()
+        
+        const imagens = await buscarImagens(valorSearch)
+        exibirImagens(imagens);
+    })
+}
+
+
 
 
 pesquisar()
